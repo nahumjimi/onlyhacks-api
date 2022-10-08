@@ -10,7 +10,12 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  Post.create(req.body)
+  const data = {
+    ...req.body,
+    user: req.currentUser
+  };
+
+  Post.create(data)
     .then(post => {
       res.status(201).json(post)
     })
